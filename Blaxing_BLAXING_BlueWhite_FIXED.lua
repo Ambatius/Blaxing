@@ -70,7 +70,7 @@ if _G.AdaptVoltV3_Running or _G._AdaptVoltRunning then
     safeCall(function()
         local pg = LP:FindFirstChildOfClass("PlayerGui")
         if pg then
-            local oldIntro = pg:FindFirstChild("AdaptIntro")
+            local oldIntro = pg:FindFirstChild("BlaxingIntro")
             if oldIntro then oldIntro:Destroy() end
         end
     end)
@@ -118,7 +118,7 @@ end
                                                 end
                                             end
 
-                                            _G._AdaptIntroEnabled = true
+                                            _G._BlaxingIntroEnabled = true
                                             _G._AdaptAntiDropEnabled = false
                                             print("[Adapt Volt] Compatibility profile enabled: Anti-Drop is disabled; supported hidden physics writes are enabled.")
                                             _G._AdaptBootSaveSession = {}
@@ -138,7 +138,7 @@ end
 
                                                 if conditionFlag17 then
                                                     do
-                                                        local adaptDoubleLoadWarning = playerGui:FindFirstChild("AdaptDoubleLoadWarning")
+                                                        local adaptDoubleLoadWarning = playerGui:FindFirstChild("BlaxingDoubleLoadWarning")
 
                                                         if adaptDoubleLoadWarning then
                                                             adaptDoubleLoadWarning:Destroy()
@@ -146,7 +146,7 @@ end
                                                     end
 
                                                     local instance = Instance.new("ScreenGui")
-                                                    instance.Name = "AdaptDoubleLoadWarning"
+                                                    instance.Name = "BlaxingDoubleLoadWarning"
                                                     instance.ResetOnSpawn = false
                                                     instance.IgnoreGuiInset = true
                                                     instance.DisplayOrder = 10000
@@ -309,7 +309,7 @@ end
                                                     local ok, result = pcall(function()
                                                         local clamp = math.clamp
                                                         local floor2 = math.floor
-                                                        local num = tonumber(_G._AdaptIntroSongIndex) or 1
+                                                        local num = tonumber(_G._BlaxingIntroSongIndex) or 1
                                                         local numericValue34 = #introSongs
                                                         local temporaryValue79 = introSongs[clamp(floor2(num), 1, numericValue34)]
                                                         local str9 = "BLAXINGIntroMusic_" .. (temporaryValue79.cacheFile or temporaryValue79.url:match("/([^/]+)$") or "song.mp3"):gsub("[^%w%._%-]", "_")
@@ -319,7 +319,7 @@ end
                                                         end
 
                                                         local sound = Instance.new("Sound")
-                                                        sound.Name = "AdaptIntroMusic"
+                                                        sound.Name = "BlaxingIntroMusic"
                                                         sound.SoundId = getcustomasset(str9)
                                                         sound.Volume = 0.7
                                                         sound.Looped = false
@@ -651,16 +651,16 @@ end
                                             _G._AdaptHiddenMobileButtons = {}
                                         end
 
-                                        if _G._AdaptIntroEnabled == nil then
-                                            _G._AdaptIntroEnabled = true
+                                        if _G._BlaxingIntroEnabled == nil then
+                                            _G._BlaxingIntroEnabled = true
                                         end
 
-                                        _G._AdaptIntroSongLocked = _G._AdaptIntroSongLocked == true
+                                        _G._BlaxingIntroSongLocked = _G._BlaxingIntroSongLocked == true
 
-                                        if _G._AdaptIntroSongLocked then
-                                            _G._AdaptIntroSongIndex = math.clamp(math.floor(tonumber(_G._AdaptIntroSongIndex) or 1), 1, #introSongs)
+                                        if _G._BlaxingIntroSongLocked then
+                                            _G._BlaxingIntroSongIndex = math.clamp(math.floor(tonumber(_G._BlaxingIntroSongIndex) or 1), 1, #introSongs)
                                         else
-                                            _G._AdaptIntroSongIndex = adaptIntroSongIndex
+                                            _G._BlaxingIntroSongIndex = adaptIntroSongIndex
                                         end
 
                                         _G._AdaptTPMirrorEnabled = false
@@ -804,7 +804,7 @@ end
                                             end
                                         end
 
-                                        for _, temporaryValue79 in ipairs({ "AdaptStealBar", "AdaptStealBarHUD" }) do
+                                        for _, temporaryValue79 in ipairs({ "AdaptStealBar", "BlaxingStealBarHUD" }) do
                                             local temporaryValue80 = playerGui:FindFirstChild(temporaryValue79)
 
                                             if temporaryValue80 then
@@ -849,7 +849,7 @@ end
 
                                     do
                                         local screenGui = Instance.new("ScreenGui")
-                                        screenGui.Name = "AdaptStealBarHUD"
+                                        screenGui.Name = "BlaxingStealBarHUD"
                                         screenGui.ResetOnSpawn = false
                                         screenGui.IgnoreGuiInset = true
                                         screenGui.DisplayOrder = 50
@@ -875,7 +875,7 @@ end
                                             do
                                                 local function helperFunction43()
                                                     local instance = Instance.new("ImageLabel")
-                                                    instance.Name = "AdaptStealBarBG"
+                                                    instance.Name = "BlaxingStealBarBG"
                                                     instance.BackgroundTransparency = 1
                                                     instance.BorderSizePixel = 0
                                                     instance.Size = UDim2.fromScale(1, 1)
@@ -6154,7 +6154,7 @@ end
                                         local str10 = "BLAXINGSkin_" .. tostring(localPlayer.UserId) .. ".json"
 
                                         local dataTable37 = {
-                                            ADAPT = { 10928435480, 6913613757, 9683332649 },
+                                            BLAX = { 10928435480, 6913613757, 9683332649 },
                                             RED = {
                                                 107377896731216,
                                                 215718515,
@@ -6176,7 +6176,7 @@ end
                                             },
                                         }
 
-                                        local dataTable38 = { ADAPT = { 263995361762992 } }
+                                        local dataTable38 = { BLAX = { 263995361762992 } }
                                         local dataTable39 = {}
                                         local conditionFlag28 = true
                                         local str11 = "BLAXING"
@@ -7082,9 +7082,9 @@ end
                                     dataTable37.btnImgIdx = _G._AdaptBtnImgIdx or 1
                                     dataTable37.themeIdx = _G._AdaptThemeIdx or 7
                                     dataTable37.backgroundColorMatch = _G._AdaptBackgroundColorMatch or false
-                                    dataTable37.introEnabled = _G._AdaptIntroEnabled ~= false
-                                    dataTable37.introSongIndex = _G._AdaptIntroSongIndex or 1
-                                    dataTable37.introSongLocked = _G._AdaptIntroSongLocked == true
+                                    dataTable37.introEnabled = _G._BlaxingIntroEnabled ~= false
+                                    dataTable37.introSongIndex = _G._BlaxingIntroSongIndex or 1
+                                    dataTable37.introSongLocked = _G._BlaxingIntroSongLocked == true
                                     dataTable37.fontMode = _G._AdaptFontMode or "DEFAULT"
                                     dataTable37.dropMode = dropMode
                                     dataTable37.tpMode = tpMode
@@ -7548,20 +7548,20 @@ end
                                     end
 
                                     if type(dataTable37.introEnabled) == "boolean" then
-                                        _G._AdaptIntroEnabled = dataTable37.introEnabled
+                                        _G._BlaxingIntroEnabled = dataTable37.introEnabled
                                     end
 
                                     if _G._AdaptVoltCompatibility then
                                         _G._AdaptAntiDropEnabled = false
                                     end
 
-                                    _G._AdaptIntroSongLocked = dataTable37.introSongLocked == true
+                                    _G._BlaxingIntroSongLocked = dataTable37.introSongLocked == true
 
-                                    if _G._AdaptIntroSongLocked and type(dataTable37.introSongIndex) == "number" then
+                                    if _G._BlaxingIntroSongLocked and type(dataTable37.introSongIndex) == "number" then
                                         local numericValue34 = #introSongs
-                                        _G._AdaptIntroSongIndex = math.clamp(math.floor(dataTable37.introSongIndex), 1, numericValue34)
+                                        _G._BlaxingIntroSongIndex = math.clamp(math.floor(dataTable37.introSongIndex), 1, numericValue34)
                                     else
-                                        _G._AdaptIntroSongIndex = adaptIntroSongIndex
+                                        _G._BlaxingIntroSongIndex = adaptIntroSongIndex
                                     end
 
                                     dropMode = "JUMP"
@@ -11437,14 +11437,14 @@ end
 
                             do
                                 local playerGui2 = localPlayer:WaitForChild("PlayerGui")
-                                local adaptHubPolished = playerGui2:FindFirstChild("AdaptHubPolished")
+                                local adaptHubPolished = playerGui2:FindFirstChild("BlaxingHubPolished")
 
                                 if adaptHubPolished then
                                     adaptHubPolished:Destroy()
                                 end
 
                                 screenGui = Instance.new("ScreenGui")
-                                screenGui.Name = "AdaptHubPolished"
+                                screenGui.Name = "BlaxingHubPolished"
                                 screenGui.ResetOnSpawn = false
                                 screenGui.IgnoreGuiInset = true
                                 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -11475,11 +11475,11 @@ end
 
 
                             local function adaptPlayIntro()
-                                if _G._AdaptIntroCleanup then
-                                    pcall(_G._AdaptIntroCleanup)
+                                if _G._BlaxingIntroCleanup then
+                                    pcall(_G._BlaxingIntroCleanup)
                                 end
 
-                                _G._AdaptIntroPlaying = true
+                                _G._BlaxingIntroPlaying = true
                                 local conditionFlag28 = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 
                                 local dataTable38 = {
@@ -11511,20 +11511,20 @@ end
 
                                 _G._AdaptCurrentIntroVariant = adaptCurrentIntroVariant
                                 local Lighting_2 = game:GetService("Lighting")
-                                local adaptIntro = screenGui:FindFirstChild("AdaptIntro")
+                                local adaptIntro = screenGui:FindFirstChild("BlaxingIntro")
 
                                 if adaptIntro then
                                     adaptIntro:Destroy()
                                 end
 
-                                local adaptIntroBlur = Lighting_2:FindFirstChild("AdaptIntroBlur")
+                                local adaptIntroBlur = Lighting_2:FindFirstChild("BlaxingIntroBlur")
 
                                 if adaptIntroBlur then
                                     adaptIntroBlur:Destroy()
                                 end
 
                                 local frame2 = Instance.new("Frame")
-                                frame2.Name = "AdaptIntro"
+                                frame2.Name = "BlaxingIntro"
                                 frame2.BackgroundColor3 = Color3.fromRGB(10, 5, 8)
                                 frame2.BackgroundTransparency = 1
                                 frame2.BorderSizePixel = 0
@@ -12113,8 +12113,8 @@ end
                                 textButton.ZIndex = 1004
                                 textButton.Parent = frame2
                                 local blurEffect = Instance.new("BlurEffect")
-                                blurEffect.Name = "AdaptIntroBlur"
-                                blurEffect:SetAttribute("_AdaptIntroEffect", true)
+                                blurEffect.Name = "BlaxingIntroBlur"
+                                blurEffect:SetAttribute("_BlaxingIntroEffect", true)
                                 blurEffect.Size = 0
                                 blurEffect.Parent = Lighting_2
                                 local conditionFlag29 = false
@@ -12126,7 +12126,7 @@ end
                                 local temporaryValue82 = nil
                                 local temporaryValue83 = nil
 
-                                _G._AdaptIntroCleanup = function()
+                                _G._BlaxingIntroCleanup = function()
                                     conditionFlag29 = true
                                     conditionFlag31 = false
                                     conditionFlag32 = false
@@ -12138,7 +12138,7 @@ end
                                         connection2 = nil
                                     end
 
-                                    _G._AdaptIntroPlaying = false
+                                    _G._BlaxingIntroPlaying = false
 
                                     if temporaryValue82 and temporaryValue82.Parent then
                                         temporaryValue82:Destroy()
@@ -12472,7 +12472,7 @@ end
                                             blurEffect:Destroy()
                                         end
 
-                                        _G._AdaptIntroPlaying = false
+                                        _G._BlaxingIntroPlaying = false
                                         local adaptRevealMainAfterIntro = _G._AdaptRevealMainAfterIntro
                                         _G._AdaptRevealMainAfterIntro = nil
 
@@ -12617,10 +12617,10 @@ end
 
                             _G._AdaptPlayIntro = adaptPlayIntro
 
-                            if _G._AdaptIntroEnabled ~= false then
+                            if _G._BlaxingIntroEnabled ~= false then
                                 adaptPlayIntro()
                             else
-                                _G._AdaptIntroPlaying = false
+                                _G._BlaxingIntroPlaying = false
                             end
 
                             local temporaryValue78
@@ -12964,7 +12964,7 @@ end
                                 temporaryValue85.Size = UDim2.new(0, 160, 1, 0)
                                 temporaryValue85.Visible = false
                                 instance = Instance.new("TextButton")
-                                instance.Name = "AdaptLogo"
+                                instance.Name = "BlaxingLogo"
                                 instance.Visible = false
                                 instance.BackgroundColor3 = dataTable37.key
                                 instance.Text = ""
@@ -13041,7 +13041,7 @@ end
                             helperFunction59()
                             local frame3
                             frame3 = Instance.new("Frame")
-                            frame3.Name = "AdaptFloatOpen"
+                            frame3.Name = "BlaxingFloatOpen"
                             frame3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
                             frame3.BackgroundTransparency = 0
                             frame3.BorderSizePixel = 0
@@ -13053,14 +13053,19 @@ end
                             frame3.Parent = screenGui
                             Instance.new("UICorner", frame3).CornerRadius = UDim.new(0, 12)
                             local imageButton
-                            imageButton = Instance.new("ImageButton", frame3)
+                            imageButton = Instance.new("TextButton", frame3)
                             imageButton.Size = UDim2.new(1, -2, 1, -2)
                             imageButton.Position = UDim2.new(0, 1, 0, 1)
-                            imageButton.BackgroundTransparency = 1
-                            imageButton.Image = "rbxassetid://135088241492683"
-                            imageButton.ScaleType = Enum.ScaleType.Fit
+                            imageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                            imageButton.BackgroundTransparency = 0
+                            imageButton.BorderSizePixel = 0
+                            imageButton.Text = "Blaxing"
+                            imageButton.TextColor3 = Color3.fromRGB(20, 85, 180)
+                            imageButton.TextSize = 12
+                            imageButton.Font = Enum.Font.GothamBold
                             imageButton.AutoButtonColor = false
                             imageButton.ZIndex = 501
+                            Instance.new("UICorner", imageButton).CornerRadius = UDim.new(0, 10)
 
 
                             local function helperFunction60()
@@ -15855,7 +15860,7 @@ end
                                     local SoundService = game:GetService("SoundService")
 
                                     for _, child in temporaryValue95(SoundService:GetChildren()) do
-                                        if child:IsA("Sound") and child.Name == "AdaptIntroMusic" then
+                                        if child:IsA("Sound") and child.Name == "BlaxingIntroMusic" then
                                             child:Destroy()
                                         end
                                     end
@@ -15865,8 +15870,8 @@ end
 
 
                                 local function adaptCleanUpdateBackgroundSelection(argumentValue)
-                                    _G._AdaptIntroSongIndex = (_G._AdaptIntroSongIndex - 1 + argumentValue) % #introSongs + 1
-                                    _G._AdaptIntroSongLocked = true
+                                    _G._BlaxingIntroSongIndex = (_G._BlaxingIntroSongIndex - 1 + argumentValue) % #introSongs + 1
+                                    _G._BlaxingIntroSongLocked = true
                                     open.Text = "OPEN"
 
                                     if _G._AdaptRefreshSongGallery then
@@ -16136,7 +16141,7 @@ end
                                     local function adaptRefreshSongGallery()
                                         local clamp = math.clamp
                                         local floor2 = math.floor
-                                        local num = tonumber(_G._AdaptIntroSongIndex) or adaptIntroSongIndex
+                                        local num = tonumber(_G._BlaxingIntroSongIndex) or adaptIntroSongIndex
                                         local numericValue40 = #introSongs
                                         local temporaryValue108 = clamp(floor2(num), 1, numericValue40)
                                         local temporaryValue109 = introSongs[temporaryValue108]
@@ -16235,8 +16240,8 @@ end
                                         dataTable45[i] = { button = textButton2, stroke = uiStroke3, name = temporaryValue111, status = selected, mark = instance8 }
 
                                         textButton2.Activated:Connect(function()
-                                            _G._AdaptIntroSongIndex = i
-                                            _G._AdaptIntroSongLocked = true
+                                            _G._BlaxingIntroSongIndex = i
+                                            _G._BlaxingIntroSongLocked = true
                                             frame10.Rotation = -7
                                             frame9.Rotation = -7
                                             adaptRefreshSongGallery()
@@ -16275,7 +16280,7 @@ end
                                             if not canvasGroup.Parent then
                                                 return
                                             end
-                                            local temporaryValue108 = dataTable45[_G._AdaptIntroSongIndex]
+                                            local temporaryValue108 = dataTable45[_G._BlaxingIntroSongIndex]
 
                                             if temporaryValue108 then
                                                 scrollingFrame.CanvasPosition = Vector2.new(0, math.clamp(temporaryValue108.button.AbsolutePosition.Y - scrollingFrame.AbsolutePosition.Y + scrollingFrame.CanvasPosition.Y, 0, math.max(0, uiListLayout.AbsoluteContentSize.Y - scrollingFrame.AbsoluteSize.Y)))
@@ -19392,12 +19397,12 @@ end
                                     end
 
                                     helperFunction78(Settings, "Intro", function(adaptIntroEnabled)
-                                        _G._AdaptIntroEnabled = adaptIntroEnabled
+                                        _G._BlaxingIntroEnabled = adaptIntroEnabled
                                         pcall(helperFunction29)
                                     end)
 
                                     if handlers.Intro then
-                                        handlers.Intro(_G._AdaptIntroEnabled ~= false, true)
+                                        handlers.Intro(_G._BlaxingIntroEnabled ~= false, true)
                                     end
                                 end
 
@@ -19606,7 +19611,7 @@ end
                                     end
 
                                     if handlers.Intro then
-                                        handlers.Intro(_G._AdaptIntroEnabled ~= false, true)
+                                        handlers.Intro(_G._BlaxingIntroEnabled ~= false, true)
                                     end
 
                                     if handlers["Ragdoll Countdown"] then
@@ -20020,7 +20025,7 @@ end
                                 task.spawn(function()
                                     task.wait(0.35)
 
-                                    if _G._AdaptIntroPlaying then
+                                    if _G._BlaxingIntroPlaying then
                                         _G._AdaptRevealMainAfterIntro = function()
                                             if _G._AdaptRevealStealBarAfterIntro then
                                                 _G._AdaptRevealStealBarAfterIntro()
@@ -20998,15 +21003,15 @@ end
                                             adaptStealBarScale = numericValue42
                                             temporaryValue100(numericValue42, true)
                                             adaptCleanApplyStealBarScale()
-                                            _G._AdaptIntroSongLocked = false
-                                            _G._AdaptIntroSongIndex = adaptIntroSongIndex
+                                            _G._BlaxingIntroSongLocked = false
+                                            _G._BlaxingIntroSongIndex = adaptIntroSongIndex
                                             open.Text = "OPEN"
 
                                             if _G._AdaptRefreshSongGallery then
                                                 _G._AdaptRefreshSongGallery()
                                             end
 
-                                            _G._AdaptIntroEnabled = true
+                                            _G._BlaxingIntroEnabled = true
                                             _G._AdaptTPMirrorEnabled = false
                                             _G._AdaptKbSave = {}
 
