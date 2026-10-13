@@ -11930,18 +11930,19 @@ end -- fine do-block speed booster proxy
 -- ========== FINE SPEED BOOSTER PROXY ==========
 
 local COLORS = {
-  bg = Color3.fromRGB(245, 252, 255),
-  row = Color3.fromRGB(255, 255, 255),
-  row2 = Color3.fromRGB(224, 242, 254),
-  stroke = Color3.fromRGB(56, 189, 248),
-  strokeSoft = Color3.fromRGB(125, 211, 252),
-  white = Color3.fromRGB(255, 255, 255),
-  textDim = Color3.fromRGB(14, 116, 144),
-  toggleBg = Color3.fromRGB(240, 249, 255),
-  knob = Color3.fromRGB(255, 255, 255),
-  cyan = Color3.fromRGB(56, 189, 248),
-  ice = Color3.fromRGB(186, 230, 253),
-  text = Color3.fromRGB(12, 74, 110),
+  -- VOID CRYSTAL theme (unik, bukan putih-biru klasik)
+  bg = Color3.fromRGB(10, 12, 22),
+  row = Color3.fromRGB(18, 22, 38),
+  row2 = Color3.fromRGB(28, 34, 56),
+  stroke = Color3.fromRGB(0, 255, 200),
+  strokeSoft = Color3.fromRGB(120, 80, 255),
+  white = Color3.fromRGB(240, 244, 255),
+  textDim = Color3.fromRGB(140, 160, 200),
+  toggleBg = Color3.fromRGB(14, 18, 32),
+  knob = Color3.fromRGB(240, 244, 255),
+  cyan = Color3.fromRGB(0, 255, 200),
+  ice = Color3.fromRGB(120, 80, 255),
+  text = Color3.fromRGB(220, 230, 255),
 }
 
 function corner(parent, radius)
@@ -12042,20 +12043,20 @@ _G._AmbitiousThemePalette = function()
     }
   end
   return {
-    c0   = Color3.fromRGB(224, 242, 254),
-    c1   = Color3.fromRGB(56, 189, 248),
-    c2   = Color3.fromRGB(125, 211, 252),
-    edge = Color3.fromRGB(186, 230, 253),
-    soft = Color3.fromRGB(56, 189, 248),
-    base = Color3.fromRGB(56, 189, 248),
-    on   = Color3.fromRGB(56, 189, 248),
-    onEdge = Color3.fromRGB(186, 230, 253),
-    panel0 = Color3.fromRGB(255, 255, 255),
-    panel1 = Color3.fromRGB(248, 250, 252),
-    panel2 = Color3.fromRGB(224, 242, 254),
-    panel3 = Color3.fromRGB(186, 230, 253),
-    row   = Color3.fromRGB(255, 255, 255),
-    row2  = Color3.fromRGB(224, 242, 254),
+    c0   = Color3.fromRGB(80, 255, 220),
+    c1   = Color3.fromRGB(0, 255, 200),
+    c2   = Color3.fromRGB(120, 80, 255),
+    edge = Color3.fromRGB(160, 120, 255),
+    soft = Color3.fromRGB(0, 255, 200),
+    base = Color3.fromRGB(0, 255, 200),
+    on   = Color3.fromRGB(0, 230, 180),
+    onEdge = Color3.fromRGB(120, 80, 255),
+    panel0 = Color3.fromRGB(16, 18, 36),
+    panel1 = Color3.fromRGB(10, 12, 22),
+    panel2 = Color3.fromRGB(18, 10, 32),
+    panel3 = Color3.fromRGB(8, 20, 28),
+    row   = Color3.fromRGB(18, 22, 38),
+    row2  = Color3.fromRGB(28, 34, 56),
   }
 end
 
@@ -12074,12 +12075,12 @@ _G._AmbitiousApplyAccent = function()
   elseif pal then
     c0, c1, c2, edge, soft, base = pal.c0, pal.c1, pal.c2, pal.edge, pal.soft, pal.base
   else
-    c0   = Color3.fromRGB(224, 242, 254)
-    c1   = Color3.fromRGB(56, 189, 248)
-    c2   = Color3.fromRGB(125, 211, 252)
-    edge = Color3.fromRGB(186, 230, 253)
-    soft = Color3.fromRGB(56, 189, 248)
-    base = Color3.fromRGB(56, 189, 248)
+    c0   = Color3.fromRGB(80, 255, 220)
+    c1   = Color3.fromRGB(0, 255, 200)
+    c2   = Color3.fromRGB(120, 80, 255)
+    edge = Color3.fromRGB(160, 120, 255)
+    soft = Color3.fromRGB(0, 255, 200)
+    base = Color3.fromRGB(0, 255, 200)
   end
 
   local cs = ColorSequence.new({
@@ -12430,6 +12431,10 @@ _G.AmbitiousApplyHalloweenTheme = function()
       hwBg.ZIndex = 0
       hwBg.BackgroundColor3 = Color3.fromRGB(251, 146, 60) -- solid orange
       hwBg.BackgroundTransparency = 0
+      local rail = Main:FindFirstChild("VoidRail")
+      if rail then rail.Visible = false end
+      local topB = Main:FindFirstChild("VoidTopBar")
+      if topB then topB.Visible = false end
       if hwGrad then
         hwGrad.Enabled = true
         hwGrad.Color = ColorSequence.new({
@@ -12473,85 +12478,169 @@ _G.AmbitiousApplyHalloweenTheme = function()
         bgImg.Visible = false
       end
     else
-      -- OFF: paksa balik putih + biru muda (hardcoded asli + restore attribute)
+      -- OFF: PAKSA balik ke VOID CRYSTAL (tema normal menu)
       if hwBg then
         hwBg.Visible = false
         hwBg.BackgroundTransparency = 1
+        pcall(function() hwBg:Destroy() end)
       end
-      -- Latar Main: nilai default asli script
-      Main.BackgroundColor3 = Color3.fromRGB(248, 250, 252)
+      Main.BackgroundColor3 = Color3.fromRGB(10, 12, 22)
       local mg = Main:FindFirstChild("BlaxingPanelGrad")
       if mg and mg:IsA("UIGradient") then
         mg.Enabled = true
-        mg.Rotation = 115
+        mg.Rotation = 150
         mg.Color = ColorSequence.new({
-          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-          ColorSequenceKeypoint.new(0.35, Color3.fromRGB(248, 250, 252)),
-          ColorSequenceKeypoint.new(0.72, Color3.fromRGB(224, 242, 254)),
-          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(16, 18, 36)),
+          ColorSequenceKeypoint.new(0.40, Color3.fromRGB(10, 12, 22)),
+          ColorSequenceKeypoint.new(0.75, Color3.fromRGB(18, 10, 32)),
+          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(8, 20, 28)),
         })
       end
-      -- Stroke / outer glow balik biru
       for _, st in ipairs(Main:GetChildren()) do
         if st:IsA("UIStroke") then
           if st.Name == "PanelOuterGlow" then
-            st.Color = Color3.fromRGB(56, 189, 248)
+            st.Color = Color3.fromRGB(120, 80, 255)
+            st.Thickness = 5
+            st.Transparency = 0.82
+          elseif st.Name == "MainNeonStroke" then
+            st.Color = Color3.fromRGB(0, 255, 200)
+            st.Thickness = 2.2
+            st.Transparency = 0.08
           else
-            st.Color = Color3.fromRGB(125, 211, 252)
+            st.Color = Color3.fromRGB(0, 255, 200)
           end
         end
       end
-      local bgImg = Main:FindFirstChild("CustomBackground")
-      if bgImg then
-        if bgImg:GetAttribute("_HwWasVisible") ~= nil then
-          bgImg.Visible = (bgImg:GetAttribute("_HwWasVisible") == true)
-        end
+      -- Void decorations visible
+      local rail = Main:FindFirstChild("VoidRail")
+      if rail then rail.Visible = true end
+      local topB = Main:FindFirstChild("VoidTopBar")
+      if topB then topB.Visible = true end
+      -- Hide pumpkins
+      for _, n in ipairs({"HwPumpkinTL","HwPumpkinTR","HwPumpkinBL","HwPumpkinBR"}) do
+        local p = Main:FindFirstChild(n)
+        if p then p.Visible = false end
       end
-      -- Restore semua frame/row yang sempat di-oranye-kan
+      local bgImg = Main:FindFirstChild("CustomBackground")
+      if bgImg and bgImg:GetAttribute("_HwWasVisible") ~= nil then
+        bgImg.Visible = (bgImg:GetAttribute("_HwWasVisible") == true)
+      end
+      -- Restore rows/strokes from saved OR force crystal defaults if looked orange
       for _, d in ipairs(Main:GetDescendants()) do
-        if d:IsA("GuiObject") then
+        if d:IsA("GuiObject") and d.Name ~= "HalloweenMenuBg" then
           local o = loadC(d, "_HwOrigBg")
-          if o then d.BackgroundColor3 = o end
+          if o then
+            d.BackgroundColor3 = o
+          else
+            -- jika masih oranye (tidak ada orig), paksa gelap crystal
+            local c = d.BackgroundColor3
+            local orange = (c.R > 0.7 and c.G > 0.3 and c.G < 0.8 and c.B < 0.45)
+            if orange and (d:IsA("Frame") or d:IsA("TextButton") or d:IsA("ScrollingFrame")) then
+              if d.Name == "BrandBadge" then
+                d.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+              elseif d.Name == "Close" then
+                d.BackgroundColor3 = Color3.fromRGB(28, 14, 28)
+              elseif d.Name == "HubBrand" then
+                d.BackgroundColor3 = Color3.fromRGB(18, 22, 40)
+              else
+                d.BackgroundColor3 = Color3.fromRGB(18, 22, 38)
+              end
+            end
+          end
         end
         if d:IsA("UIStroke") then
           local o = loadC(d, "_HwOrigStroke")
-          if o then d.Color = o end
+          if o then
+            d.Color = o
+          else
+            local c = d.Color
+            if c.R > 0.7 and c.G > 0.3 and c.B < 0.5 then
+              d.Color = Color3.fromRGB(0, 255, 200)
+            end
+          end
         end
         if d:IsA("UIGradient") and d:GetAttribute("_HwOrigGrad") then
           local a = loadC(d, "_HwOrigG0")
           local b = loadC(d, "_HwOrigG1")
           local c = loadC(d, "_HwOrigG2")
           if a and b and c then
-            d.Color = ColorSequence.new({
-              ColorSequenceKeypoint.new(0.00, a),
-              ColorSequenceKeypoint.new(0.50, b),
-              ColorSequenceKeypoint.new(1.00, c),
-            })
-          end
-          if d.Name ~= "BlaxingPanelGrad" then
-            -- keep enabled state as was; panel grad already forced on
+            -- jangan restore oranye sebagai "asli"
+            local midOrange = (b.R > 0.7 and b.G > 0.3 and b.B < 0.5)
+            if not midOrange then
+              d.Color = ColorSequence.new({
+                ColorSequenceKeypoint.new(0.00, a),
+                ColorSequenceKeypoint.new(0.50, b),
+                ColorSequenceKeypoint.new(1.00, c),
+              })
+            end
           end
         end
       end
+      -- Clear halloween attributes supaya cycle berikutnya bersih
+      pcall(function()
+        Main:SetAttribute("_HwOrigBg", nil)
+        local mg2 = Main:FindFirstChild("BlaxingPanelGrad")
+        if mg2 then
+          mg2:SetAttribute("_HwOrigGrad", nil)
+          mg2:SetAttribute("_HwOrigG0", nil)
+          mg2:SetAttribute("_HwOrigG1", nil)
+          mg2:SetAttribute("_HwOrigG2", nil)
+        end
+      end)
     end
   end)
 
-  -- Mini frame background
+  -- Mini frame: normal = gelap void, halloween = oranye
   pcall(function()
     if not MiniFrame or not MiniFrame.Parent then return end
     if on then
       saveC(MiniFrame, "_HwOrigBg", MiniFrame.BackgroundColor3)
       MiniFrame.BackgroundColor3 = Color3.fromRGB(251, 146, 60)
-    else
-      MiniFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
       local st = MiniFrame:FindFirstChildOfClass("UIStroke")
-      if st then st.Color = Color3.fromRGB(56, 189, 248) end
+      if st then st.Color = Color3.fromRGB(253, 186, 116) end
+    else
+      MiniFrame.BackgroundColor3 = Color3.fromRGB(14, 16, 28)
+      local st = MiniFrame:FindFirstChildOfClass("UIStroke")
+      if st then st.Color = Color3.fromRGB(0, 255, 200) end
       local g = MiniFrame:FindFirstChildOfClass("UIGradient")
       if g then
         g.Color = ColorSequence.new({
-          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-          ColorSequenceKeypoint.new(0.50, Color3.fromRGB(240, 249, 255)),
-          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(18, 22, 40)),
+          ColorSequenceKeypoint.new(0.50, Color3.fromRGB(14, 16, 28)),
+          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(20, 12, 36)),
+        })
+      end
+    end
+  end)
+
+  -- Float UI bar: Halloween oranye / Normal VOID CRYSTAL
+  pcall(function()
+    local bar = _G._AmbitiousFloatUiBar
+    if not (bar and bar.Parent) then return end
+    local st = bar:FindFirstChildOfClass("UIStroke")
+    local g = bar:FindFirstChildOfClass("UIGradient")
+    local lbl = bar:FindFirstChild("HudText")
+    if on then
+      bar.BackgroundColor3 = Color3.fromRGB(251, 146, 60)
+      if st then st.Color = Color3.fromRGB(253, 186, 116) end
+      if g then
+        g.Color = ColorSequence.new({
+          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 200, 120)),
+          ColorSequenceKeypoint.new(0.50, Color3.fromRGB(251, 146, 60)),
+          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(234, 88, 12)),
+        })
+      end
+      if lbl and lbl:IsA("TextLabel") then
+        -- teks float tetap; hanya chrome
+      end
+    else
+      bar.BackgroundColor3 = Color3.fromRGB(12, 14, 26)
+      if st then st.Color = Color3.fromRGB(0, 255, 200) end
+      if g then
+        g.Color = ColorSequence.new({
+          ColorSequenceKeypoint.new(0.00, Color3.fromRGB(18, 22, 40)),
+          ColorSequenceKeypoint.new(0.45, Color3.fromRGB(12, 14, 26)),
+          ColorSequenceKeypoint.new(1.00, Color3.fromRGB(22, 12, 36)),
         })
       end
     end
@@ -12565,7 +12654,6 @@ _G.AmbitiousApplyHalloweenTheme = function()
     if _G.AmbitiousRefreshMobileButtonStates then
       _G.AmbitiousRefreshMobileButtonStates()
     end
-    -- Sync warna scallop hantu dengan bg tombol
     if _G.AmbitiousHalloweenTheme == true then
       for _, entry in pairs(_G.AmbitiousMobileButtonRefs or {}) do
         local btn = entry and entry.btn
@@ -12581,6 +12669,9 @@ _G.AmbitiousApplyHalloweenTheme = function()
       end
     end
   end)
+
+  -- Pastikan accent (toggle/slide) ikut tema aktif / normal
+  pcall(function() if _G._AmbitiousApplyAccent then _G._AmbitiousApplyAccent() end end)
 end
 
 -- Dopo che una tendina si chiude il canvas si accorcia, ma Roblox lascia
@@ -12773,34 +12864,89 @@ do
 end
 savedMainPositionTable = udim2ToTable(Main.Position)
 _G._AmbitiousMainFrame = Main
-Main.BackgroundColor3 = Color3.fromRGB(248, 250, 252)
+-- VOID CRYSTAL shell — tampilan menu total berbeda
+Main.BackgroundColor3 = Color3.fromRGB(10, 12, 22)
 Main.BorderSizePixel = 0
 Main.Active = true
 Main.ClipsDescendants = true
 Main.Parent = Gui
-corner(Main, 20)
+corner(Main, 28)
 do
   local mainGrad = Instance.new("UIGradient")
   mainGrad.Name = "BlaxingPanelGrad"
-  mainGrad.Rotation = 115
+  mainGrad.Rotation = 150
   mainGrad.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(0.35, Color3.fromRGB(248, 250, 252)),
-    ColorSequenceKeypoint.new(0.72, Color3.fromRGB(224, 242, 254)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(16, 18, 36)),
+    ColorSequenceKeypoint.new(0.40, Color3.fromRGB(10, 12, 22)),
+    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(18, 10, 32)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(8, 20, 28)),
   })
   mainGrad.Parent = Main
 end
-stroke(Main, Color3.fromRGB(125, 211, 252), 1.6, 0.18)
+-- Neon dual-edge (cyan + violet)
 do
-  -- soft outer accent ring
+  local s = Instance.new("UIStroke")
+  s.Name = "MainNeonStroke"
+  s.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+  s.Thickness = 2.2
+  s.Transparency = 0.08
+  s.Color = Color3.fromRGB(0, 255, 200)
+  s.Parent = Main
+  local sg = Instance.new("UIGradient")
+  sg.Rotation = 45
+  sg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.45, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+  })
+  sg.Parent = s
+end
+do
   local ring = Instance.new("UIStroke")
   ring.Name = "PanelOuterGlow"
   ring.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-  ring.Color = Color3.fromRGB(56, 189, 248)
-  ring.Thickness = 3.5
-  ring.Transparency = 0.88
+  ring.Color = Color3.fromRGB(120, 80, 255)
+  ring.Thickness = 5
+  ring.Transparency = 0.82
   ring.Parent = Main
+end
+-- Left neon rail
+do
+  local rail = Instance.new("Frame")
+  rail.Name = "VoidRail"
+  rail.Size = UDim2.new(0, 4, 1, -24)
+  rail.Position = UDim2.new(0, 8, 0, 12)
+  rail.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+  rail.BorderSizePixel = 0
+  rail.ZIndex = 5
+  rail.Parent = Main
+  corner(rail, 4)
+  local rg = Instance.new("UIGradient")
+  rg.Rotation = 90
+  rg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+  })
+  rg.Parent = rail
+end
+-- Top holographic bar
+do
+  local topBar = Instance.new("Frame")
+  topBar.Name = "VoidTopBar"
+  topBar.Size = UDim2.new(1, -24, 0, 3)
+  topBar.Position = UDim2.new(0, 12, 0, 0)
+  topBar.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+  topBar.BorderSizePixel = 0
+  topBar.ZIndex = 6
+  topBar.Parent = Main
+  local tg = Instance.new("UIGradient")
+  tg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255, 60, 160)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(120, 80, 255)),
+  })
+  tg.Parent = topBar
 end
 
 makeDraggable(Main)
@@ -12876,23 +13022,82 @@ end
 _G.AmbitiousApplyTitleStyle(_G.AmbitiousTitleStyle)
 -- <<< TITLE STYLE END
 
+-- MINI BUTTON: crystal shard capsule (lebih kecil + ekstrem)
 local MiniFrame = Instance.new("Frame")
 MiniFrame.Name = "MiniFrame"
 MiniFrame.AnchorPoint = Vector2.new(0, 0)
-MiniFrame.Size = UDim2.new(0, 74, 0, 36)
+MiniFrame.Size = UDim2.new(0, 72, 0, 28)
 local MINI_DEFAULT_POSITION = UDim2.new(0, 132, 0, 112)
 MiniFrame.Position = tableToUDim2(savedMiniPositionTable, MINI_DEFAULT_POSITION)
 savedMiniPositionTable = udim2ToTable(MiniFrame.Position)
-MiniFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-MiniFrame.BackgroundTransparency = 0
+MiniFrame.BackgroundColor3 = Color3.fromRGB(10, 12, 22)
+MiniFrame.BackgroundTransparency = 0.05
 MiniFrame.BorderSizePixel = 0
 MiniFrame.Visible = false
 MiniFrame.Active = true
+MiniFrame.ClipsDescendants = true
 MiniFrame.ZIndex = 20
 MiniFrame.Parent = Gui
 _G._AmbitiousMiniFrame = MiniFrame
-corner(MiniFrame, 20)
-stroke(MiniFrame, Color3.fromRGB(56, 189, 248), 1.2, 0.05)
+corner(MiniFrame, 14)
+do
+  local st = Instance.new("UIStroke")
+  st.Name = "MiniNeon"
+  st.Thickness = 1.6
+  st.Transparency = 0.12
+  st.Color = Color3.fromRGB(0, 255, 200)
+  st.Parent = MiniFrame
+  local sg = Instance.new("UIGradient")
+  sg.Rotation = 20
+  sg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+  })
+  sg.Parent = st
+end
+local miniGrad = Instance.new("UIGradient", MiniFrame)
+miniGrad.Rotation = 125
+miniGrad.Color = ColorSequence.new({
+  ColorSequenceKeypoint.new(0.00, Color3.fromRGB(18, 22, 40)),
+  ColorSequenceKeypoint.new(0.45, Color3.fromRGB(10, 12, 22)),
+  ColorSequenceKeypoint.new(1.00, Color3.fromRGB(22, 12, 36)),
+})
+-- outer soft glow ring
+do
+  local ring = Instance.new("Frame")
+  ring.Name = "MiniOuterRing"
+  ring.BackgroundTransparency = 1
+  ring.Size = UDim2.new(1, 8, 1, 8)
+  ring.Position = UDim2.new(0, -4, 0, -4)
+  ring.ZIndex = 19
+  ring.Parent = MiniFrame
+  corner(ring, 16)
+  local rs = Instance.new("UIStroke")
+  rs.Thickness = 3
+  rs.Transparency = 0.82
+  rs.Color = Color3.fromRGB(120, 80, 255)
+  rs.Parent = ring
+end
+-- left crystal gem
+do
+  local gem = Instance.new("Frame")
+  gem.Name = "MiniGem"
+  gem.Size = UDim2.new(0, 4, 1, -8)
+  gem.Position = UDim2.new(0, 4, 0, 4)
+  gem.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+  gem.BorderSizePixel = 0
+  gem.ZIndex = 22
+  gem.Parent = MiniFrame
+  corner(gem, 3)
+  local gg = Instance.new("UIGradient")
+  gg.Rotation = 90
+  gg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+  })
+  gg.Parent = gem
+end
 
 local MiniButton = Instance.new("TextButton")
 MiniButton.Name = "MiniButton"
@@ -12900,20 +13105,15 @@ MiniButton.Size = UDim2.new(1, 0, 1, 0)
 MiniButton.Position = UDim2.new(0, 0, 0, 0)
 MiniButton.BackgroundTransparency = 1
 MiniButton.Text = ""
-MiniButton.TextColor3 = Color3.fromRGB(14, 165, 233)
-MiniButton.TextStrokeTransparency = 1
-MiniButton.TextSize = 12
-MiniButton.Font = Enum.Font.GothamBlack
 MiniButton.AutoButtonColor = false
 MiniButton.ZIndex = 21
 MiniButton.Parent = MiniFrame
--- Mini brand: [B]Blaxing
 do
   local mbBadge = Instance.new("Frame")
   mbBadge.Name = "MiniBadge"
-  mbBadge.Size = UDim2.new(0, 18, 0, 18)
-  mbBadge.Position = UDim2.new(0, 8, 0.5, -9)
-  mbBadge.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  mbBadge.Size = UDim2.new(0, 16, 0, 16)
+  mbBadge.Position = UDim2.new(0, 12, 0.5, -8)
+  mbBadge.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
   mbBadge.BorderSizePixel = 0
   mbBadge.ZIndex = 22
   mbBadge.Parent = MiniButton
@@ -12921,43 +13121,41 @@ do
   local mbg = Instance.new("UIGradient")
   mbg.Rotation = 135
   mbg.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(186, 230, 253)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(56, 189, 248)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
   })
   mbg.Parent = mbBadge
-  stroke(mbBadge, Color3.fromRGB(125, 211, 252), 1.1, 0.2)
   local mbB = Instance.new("TextLabel")
   mbB.BackgroundTransparency = 1
   mbB.Size = UDim2.new(1, 0, 1, 0)
   mbB.Text = "B"
-  mbB.TextColor3 = Color3.fromRGB(255, 255, 255)
+  mbB.TextColor3 = Color3.fromRGB(10, 12, 22)
   mbB.Font = Enum.Font.GothamBlack
-  mbB.TextSize = 11
+  mbB.TextSize = 10
   mbB.TextXAlignment = Enum.TextXAlignment.Center
   mbB.ZIndex = 23
   mbB.Parent = mbBadge
   local mbName = Instance.new("TextLabel")
   mbName.BackgroundTransparency = 1
-  mbName.Size = UDim2.new(1, -28, 1, 0)
-  mbName.Position = UDim2.new(0, 28, 0, 0)
-  mbName.Text = "Blaxing"
-  mbName.TextColor3 = Color3.fromRGB(14, 165, 233)
+  mbName.Size = UDim2.new(1, -32, 1, 0)
+  mbName.Position = UDim2.new(0, 30, 0, 0)
+  mbName.Text = "BX"
+  mbName.TextColor3 = Color3.fromRGB(230, 240, 255)
   mbName.Font = Enum.Font.GothamBlack
   mbName.TextSize = 11
   mbName.TextXAlignment = Enum.TextXAlignment.Left
   mbName.TextYAlignment = Enum.TextYAlignment.Center
   mbName.ZIndex = 22
   mbName.Parent = MiniButton
+  local ng = Instance.new("UIGradient")
+  ng.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(200, 180, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 120, 200)),
+  })
+  ng.Parent = mbName
 end
--- widen mini frame a bit for the brand
-MiniFrame.Size = UDim2.new(0, 96, 0, 36)
-local miniGrad = Instance.new("UIGradient", MiniFrame)
-miniGrad.Color = ColorSequence.new({
-  ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-  ColorSequenceKeypoint.new(0.50, Color3.fromRGB(240, 249, 255)),
-  ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
-})
 
 local MiniLogo = Instance.new("ImageLabel")
 MiniLogo.Name = "MiniLogo"
@@ -13096,7 +13294,7 @@ end
 -- Pop del mini popup (comparsa/sparizione)
 _G._AmbitiousMiniPop = function(show)
   if not MiniFrame then return end
-  local full = UDim2.new(0, 100, 0, 48)
+  local full = UDim2.new(0, 72, 0, 28)
   if show then
     MiniFrame.Size = UDim2.new(0, 0, 0, 0)
     MiniFrame.Visible = true
@@ -13481,70 +13679,71 @@ if _G._AmbitiousApplyAccent then pcall(_G._AmbitiousApplyAccent) end
 -- RIMOSSO IL LINK DISCORD
 local HeaderDivider = Instance.new("Frame")
 HeaderDivider.Name = "HeaderDivider"
-HeaderDivider.BackgroundColor3 = Color3.fromRGB(56, 189, 248)
-HeaderDivider.BackgroundTransparency = 0.35
+HeaderDivider.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+HeaderDivider.BackgroundTransparency = 0.25
 HeaderDivider.BorderSizePixel = 0
-HeaderDivider.Size = UDim2.new(1, -34, 0, 1)
-HeaderDivider.Position = UDim2.new(0, 17, 0, 44)
+HeaderDivider.Size = UDim2.new(1, -40, 0, 2)
+HeaderDivider.Position = UDim2.new(0, 20, 0, 48)
 HeaderDivider.ZIndex = 6
 HeaderDivider.Parent = Main
 do
   local dg = Instance.new("UIGradient")
   dg.Rotation = 0
   dg.Transparency = NumberSequence.new({
-    NumberSequenceKeypoint.new(0.00, 0.85),
-    NumberSequenceKeypoint.new(0.20, 0.15),
-    NumberSequenceKeypoint.new(0.50, 0.00),
-    NumberSequenceKeypoint.new(0.80, 0.15),
-    NumberSequenceKeypoint.new(1.00, 0.85),
+    NumberSequenceKeypoint.new(0.00, 0.9),
+    NumberSequenceKeypoint.new(0.25, 0.1),
+    NumberSequenceKeypoint.new(0.50, 0.0),
+    NumberSequenceKeypoint.new(0.75, 0.1),
+    NumberSequenceKeypoint.new(1.00, 0.9),
   })
   dg.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(186, 230, 253)),
-    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(56, 189, 248)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255, 60, 160)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(120, 80, 255)),
   })
   dg.Parent = HeaderDivider
 end
 
--- Brand: [B]Blaxing (semua local di dalam do supaya tidak melewati limit 200)
+-- Brand capsule: [B] BLAXING — holographic
 do
   local HubBrand = Instance.new("Frame")
   HubBrand.Name = "HubBrand"
-  HubBrand.BackgroundTransparency = 1
-  HubBrand.Size = UDim2.new(0, 140, 0, 28)
-  HubBrand.Position = UDim2.new(0, 14, 0, 10)
+  HubBrand.BackgroundColor3 = Color3.fromRGB(18, 22, 40)
+  HubBrand.BackgroundTransparency = 0.15
+  HubBrand.Size = UDim2.new(0, 148, 0, 32)
+  HubBrand.Position = UDim2.new(0, 20, 0, 10)
   HubBrand.ZIndex = 6
   HubBrand.Parent = Main
+  corner(HubBrand, 16)
+  stroke(HubBrand, Color3.fromRGB(0, 255, 200), 1.2, 0.35)
 
   local BrandBadge = Instance.new("Frame")
   BrandBadge.Name = "BrandBadge"
-  BrandBadge.Size = UDim2.new(0, 26, 0, 26)
-  BrandBadge.Position = UDim2.new(0, 0, 0.5, -13)
-  BrandBadge.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  BrandBadge.Size = UDim2.new(0, 24, 0, 24)
+  BrandBadge.Position = UDim2.new(0, 5, 0.5, -12)
+  BrandBadge.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
   BrandBadge.BorderSizePixel = 0
   BrandBadge.ZIndex = 7
   BrandBadge.Parent = HubBrand
-  corner(BrandBadge, 7)
+  corner(BrandBadge, 8)
   local bg = Instance.new("UIGradient")
   bg.Rotation = 135
   bg.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(0.45, Color3.fromRGB(186, 230, 253)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(56, 189, 248)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
   })
   bg.Parent = BrandBadge
-  stroke(BrandBadge, Color3.fromRGB(125, 211, 252), 1.4, 0.15)
 
   local BrandB = Instance.new("TextLabel")
   BrandB.Name = "B"
   BrandB.BackgroundTransparency = 1
   BrandB.Size = UDim2.new(1, 0, 1, 0)
   BrandB.Text = "B"
-  BrandB.TextColor3 = Color3.fromRGB(255, 255, 255)
-  BrandB.TextStrokeColor3 = Color3.fromRGB(14, 116, 144)
-  BrandB.TextStrokeTransparency = 0.55
+  BrandB.TextColor3 = Color3.fromRGB(10, 12, 22)
+  BrandB.TextStrokeTransparency = 1
   BrandB.Font = Enum.Font.GothamBlack
-  BrandB.TextSize = 15
+  BrandB.TextSize = 14
   BrandB.TextXAlignment = Enum.TextXAlignment.Center
   BrandB.TextYAlignment = Enum.TextYAlignment.Center
   BrandB.ZIndex = 8
@@ -13553,50 +13752,41 @@ do
   local HubTitle = Instance.new("TextLabel")
   HubTitle.Name = "HubTitle"
   HubTitle.BackgroundTransparency = 1
-  HubTitle.Text = "Blaxing"
-  HubTitle.TextColor3 = Color3.fromRGB(14, 165, 233)
-  HubTitle.TextSize = 16
+  HubTitle.Text = "BLAXING"
+  HubTitle.TextColor3 = Color3.fromRGB(240, 244, 255)
+  HubTitle.TextSize = 13
   HubTitle.Font = Enum.Font.GothamBlack
   HubTitle.TextXAlignment = Enum.TextXAlignment.Left
   HubTitle.TextYAlignment = Enum.TextYAlignment.Center
   HubTitle.Size = UDim2.new(0, 100, 1, 0)
-  HubTitle.Position = UDim2.new(0, 32, 0, 0)
+  HubTitle.Position = UDim2.new(0, 36, 0, 0)
   HubTitle.ZIndex = 7
   HubTitle.Parent = HubBrand
   local tg = Instance.new("UIGradient")
   tg.Rotation = 0
   tg.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(14, 165, 233)),
-    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(56, 189, 248)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(125, 211, 252)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(200, 180, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 120, 200)),
   })
   tg.Parent = HubTitle
 end
 
 local Close = Instance.new("TextButton")
 Close.Name = "Close"
-Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 0
-Close.Text = "-"
-Close.TextColor3 = Color3.fromRGB(14, 165, 233)
-Close.TextSize = 20
+Close.BackgroundColor3 = Color3.fromRGB(28, 14, 28)
+Close.BackgroundTransparency = 0.1
+Close.Text = "✕"
+Close.TextColor3 = Color3.fromRGB(255, 120, 180)
+Close.TextSize = 14
 Close.Font = Enum.Font.GothamBlack
-Close.Size = UDim2.new(0, 30, 0, 26)
-Close.Position = UDim2.new(1, -40, 0, 11)
+Close.Size = UDim2.new(0, 30, 0, 30)
+Close.Position = UDim2.new(1, -42, 0, 10)
 Close.AutoButtonColor = false
 Close.ZIndex = 8
 Close.Parent = Main
-corner(Close, 8)
-stroke(Close, Color3.fromRGB(125, 211, 252), 1.2, 0.25)
-do
-  local cg = Instance.new("UIGradient")
-  cg.Rotation = 90
-  cg.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(224, 242, 254)),
-  })
-  cg.Parent = Close
-end
+corner(Close, 15)
+stroke(Close, Color3.fromRGB(255, 60, 160), 1.3, 0.3)
 
 AmbitiousLockTopButton = Instance.new("TextButton")
 AmbitiousLockTopButton.Name = "LockGUI"
@@ -13656,22 +13846,36 @@ _G.AmbitiousFloatUiVisible = (_G.AmbitiousFloatUiVisible ~= false) -- default ON
   bar.Name = "HudBar"
   bar.AnchorPoint = Vector2.new(0.5, 0)
   bar.Position = UDim2.new(0.5, 0, 0, 36)
-  bar.Size = UDim2.new(0, 270, 0, 34)
-  bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  bar.Size = UDim2.new(0, 280, 0, 34)
+  bar.BackgroundColor3 = Color3.fromRGB(12, 14, 26)
   bar.BorderSizePixel = 0
   bar.ZIndex = 20
   bar.Visible = _G.AmbitiousFloatUiVisible ~= false
   bar.Parent = hudGui
-  corner(bar, 8)
-  stroke(bar, Color3.fromRGB(56, 189, 248), 1.2, 0.12)
+  corner(bar, 12)
+  stroke(bar, Color3.fromRGB(0, 255, 200), 1.4, 0.2)
   local g = Instance.new("UIGradient")
-  g.Rotation = 0
+  g.Rotation = 15
   g.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(224, 242, 254)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(18, 22, 40)),
+    ColorSequenceKeypoint.new(0.45, Color3.fromRGB(12, 14, 26)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(22, 12, 36)),
   })
   g.Parent = bar
+  -- neon edge gradient on stroke
+  do
+    local st = bar:FindFirstChildOfClass("UIStroke")
+    if st then
+      local sg = Instance.new("UIGradient")
+      sg.Rotation = 0
+      sg.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+        ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+        ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+      })
+      sg.Parent = st
+    end
+  end
 
   local lbl = Instance.new("TextLabel")
   lbl.Name = "HudText"
@@ -13679,12 +13883,21 @@ _G.AmbitiousFloatUiVisible = (_G.AmbitiousFloatUiVisible ~= false) -- default ON
   lbl.Size = UDim2.new(1, -16, 1, 0)
   lbl.Position = UDim2.new(0, 8, 0, 0)
   lbl.Font = Enum.Font.GothamBlack
-  lbl.TextSize = 12
-  lbl.TextColor3 = Color3.fromRGB(14, 165, 233)
+  lbl.TextSize = 11
+  lbl.TextColor3 = Color3.fromRGB(0, 255, 200)
   lbl.TextXAlignment = Enum.TextXAlignment.Center
   lbl.Text = "[B] Blaxing  |  .gg/7Sqw6arUM  |  -- MS  |  -- FPS"
   lbl.ZIndex = 21
   lbl.Parent = bar
+  do
+    local tg = Instance.new("UIGradient")
+    tg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(0.55, Color3.fromRGB(180, 150, 255)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 120, 200)),
+    })
+    tg.Parent = lbl
+  end
 
   -- Expose toggle function
   _G.AmbitiousSetFloatUiVisible = function(on)
@@ -13719,30 +13932,79 @@ _G.AmbitiousFloatUiVisible = (_G.AmbitiousFloatUiVisible ~= false) -- default ON
 end)()
 
 
+-- CONTENT SHELL: panel dalam (bukan full-bleed klasik)
+local ContentShell = Instance.new("Frame")
+ContentShell.Name = "ContentShell"
+ContentShell.BackgroundColor3 = Color3.fromRGB(8, 10, 20)
+ContentShell.BackgroundTransparency = 0.25
+ContentShell.BorderSizePixel = 0
+ContentShell.Position = UDim2.new(0, 16, 0, 128)
+ContentShell.Size = UDim2.new(1, -32, 1, -142)
+ContentShell.ZIndex = 2
+ContentShell.Parent = Main
+corner(ContentShell, 16)
+do
+  local cs = Instance.new("UIStroke")
+  cs.Color = Color3.fromRGB(40, 50, 80)
+  cs.Thickness = 1
+  cs.Transparency = 0.4
+  cs.Parent = ContentShell
+end
+do
+  local cg = Instance.new("UIGradient")
+  cg.Rotation = 110
+  cg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(14, 16, 30)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(8, 10, 20)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 12, 28)),
+  })
+  cg.Parent = ContentShell
+end
+
 local Content = Instance.new("Frame")
 Content.Name = "Content"
 Content.BackgroundTransparency = 1
-Content.Position = UDim2.new(0, 13, 0, 52)
-Content.Size = UDim2.new(1, -26, 1, -108)
+Content.Position = UDim2.new(0, 22, 0, 134)
+Content.Size = UDim2.new(1, -44, 1, -154)
 Content.ZIndex = 3
 Content.Parent = Main
 
+-- TAB DOCK: bar kapsul terpisah di atas content
 local Tabs = Instance.new("Frame")
 Tabs.Name = "Tabs"
-Tabs.BackgroundTransparency = 1
-Tabs.Position = UDim2.new(0, 12, 0, 52)
-Tabs.Size = UDim2.new(1, -24, 0, 73)
+Tabs.BackgroundColor3 = Color3.fromRGB(12, 14, 28)
+Tabs.BackgroundTransparency = 0.15
+Tabs.Position = UDim2.new(0, 16, 0, 54)
+Tabs.Size = UDim2.new(1, -32, 0, 68)
 Tabs.ZIndex = 3
 Tabs.Parent = Main
+corner(Tabs, 14)
+stroke(Tabs, Color3.fromRGB(0, 255, 200), 1.1, 0.55)
+do
+  local tg = Instance.new("UIGradient")
+  tg.Rotation = 0
+  tg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(16, 20, 36)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(12, 14, 28)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(20, 14, 36)),
+  })
+  tg.Parent = Tabs
+end
 
 local TabLayout = Instance.new("UIListLayout")
 TabLayout.FillDirection = Enum.FillDirection.Horizontal
-TabLayout.Padding = UDim.new(0, 5)
+TabLayout.Padding = UDim.new(0, 4)
 TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 TabLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 TabLayout.Wraps = true
 TabLayout.Parent = Tabs
+local TabPad = Instance.new("UIPadding")
+TabPad.PaddingLeft = UDim.new(0, 6)
+TabPad.PaddingRight = UDim.new(0, 6)
+TabPad.PaddingTop = UDim.new(0, 6)
+TabPad.PaddingBottom = UDim.new(0, 6)
+TabPad.Parent = Tabs
 
 local pages = {}
 local tabButtons = {}
@@ -13763,7 +14025,7 @@ function addPage(name)
   page.Visible = false
   page.Parent = Content
   local layout = Instance.new("UIListLayout")
-  layout.Padding = UDim.new(0, 14)
+  layout.Padding = UDim.new(0, 8)
   layout.SortOrder = Enum.SortOrder.LayoutOrder
   layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
   layout.Parent = page
@@ -13811,14 +14073,16 @@ function setTab(name)
   end
   for tabName, btn in pairs(tabButtons) do
     local on = tabName == name
-    btn.TextColor3 = on and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(14, 165, 233)
-    btn.BackgroundColor3 = on and Color3.fromRGB(56, 189, 248) or Color3.fromRGB(255, 255, 255)
-    btn.BackgroundTransparency = 0
+    btn.TextColor3 = on and Color3.fromRGB(10, 12, 22) or Color3.fromRGB(160, 180, 220)
+    btn.BackgroundColor3 = on and Color3.fromRGB(0, 255, 200) or Color3.fromRGB(22, 26, 44)
+    btn.BackgroundTransparency = on and 0 or 0.25
     local st = btn:FindFirstChildOfClass("UIStroke")
     if st then
-      st.Transparency = on and 0.05 or 0.25
-      st.Color = Color3.fromRGB(56, 189, 248)
+      st.Transparency = on and 0.1 or 0.65
+      st.Color = on and Color3.fromRGB(0, 255, 200) or Color3.fromRGB(80, 90, 130)
     end
+    local ind = btn:FindFirstChild("TabIndicator")
+    if ind then ind.Visible = on end
   end
 end
 
@@ -13826,25 +14090,33 @@ for tabIndex, name in ipairs(tabNames) do
   addPage(name)
   local btn = Instance.new("TextButton")
   btn.Name = name
-  btn.Size = UDim2.new(0, 0, 0, 34)
-  btn.SizeConstraint = Enum.SizeConstraint.RelativeXY
-  btn.AutomaticSize = Enum.AutomaticSize.None
-  btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  btn.BackgroundTransparency = 0
+  btn.BackgroundColor3 = Color3.fromRGB(22, 26, 44)
+  btn.BackgroundTransparency = 0.25
   btn.BorderSizePixel = 0
   btn.Text = name
-  btn.TextColor3 = Color3.fromRGB(14, 165, 233)
-  btn.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-  btn.TextStrokeTransparency = 0.35
+  btn.TextColor3 = Color3.fromRGB(160, 180, 220)
+  btn.TextStrokeTransparency = 1
   btn.TextSize = 8
   btn.Font = Enum.Font.GothamBlack
   btn.AutoButtonColor = false
   btn.ZIndex = 4
   btn.Parent = Tabs
   btn.LayoutOrder = tabIndex
-  btn.Size = UDim2.new((tabIndex <= 3) and 0.333 or 0.5, -4, 0, 34)
-  corner(btn, 8)
-  stroke(btn, COLORS.stroke, 1, 0.18)
+  btn.Size = UDim2.new((tabIndex <= 3) and 0.333 or 0.5, -4, 0, 28)
+  corner(btn, 10)
+  stroke(btn, Color3.fromRGB(80, 90, 130), 1, 0.65)
+  -- indikator aktif di bawah tombol tab
+  local ind = Instance.new("Frame")
+  ind.Name = "TabIndicator"
+  ind.AnchorPoint = Vector2.new(0.5, 1)
+  ind.Position = UDim2.new(0.5, 0, 1, -2)
+  ind.Size = UDim2.new(0.45, 0, 0, 2)
+  ind.BackgroundColor3 = Color3.fromRGB(10, 12, 22)
+  ind.BorderSizePixel = 0
+  ind.Visible = false
+  ind.ZIndex = 5
+  ind.Parent = btn
+  corner(ind, 2)
   tabButtons[name] = btn
   btn.MouseButton1Click:Connect(function()
     setTab(name)
@@ -13880,25 +14152,29 @@ end
   local LAYOUTS = {
     Up = {
       wide       = false,
-      tabsPos    = UDim2.new(0, 12, 0, 52),
-      tabsSize   = UDim2.new(1, -24, 0, 73),
+      tabsPos    = UDim2.new(0, 16, 0, 54),
+      tabsSize   = UDim2.new(1, -32, 0, 68),
       dir        = H,
-      pad        = UDim.new(0, 5),
+      pad        = UDim.new(0, 4),
       hAlign     = Enum.HorizontalAlignment.Center,
       vAlign     = Enum.VerticalAlignment.Center,
-      contentPos = UDim2.new(0, 13, 0, 130),
-      contentSize= UDim2.new(1, -26, 1, -130),
+      contentPos = UDim2.new(0, 22, 0, 134),
+      contentSize= UDim2.new(1, -44, 1, -154),
+      shellPos   = UDim2.new(0, 16, 0, 128),
+      shellSize  = UDim2.new(1, -32, 1, -142),
     },
     Bottom = {
       wide       = false,
-      tabsPos    = UDim2.new(0, 12, 1, -46),
-      tabsSize   = UDim2.new(1, -24, 0, 34),
+      tabsPos    = UDim2.new(0, 16, 1, -50),
+      tabsSize   = UDim2.new(1, -32, 0, 40),
       dir        = H,
-      pad        = UDim.new(0, 5),
+      pad        = UDim.new(0, 4),
       hAlign     = Enum.HorizontalAlignment.Center,
       vAlign     = Enum.VerticalAlignment.Center,
-      contentPos = UDim2.new(0, 13, 0, 52),
-      contentSize= UDim2.new(1, -26, 1, -108),
+      contentPos = UDim2.new(0, 22, 0, 58),
+      contentSize= UDim2.new(1, -44, 1, -118),
+      shellPos   = UDim2.new(0, 16, 0, 52),
+      shellSize  = UDim2.new(1, -32, 1, -110),
     },
     Left = {
       wide       = true,
@@ -14062,6 +14338,11 @@ end
 
     Content.Position = L.contentPos
     Content.Size     = L.contentSize
+    local shell = Main:FindFirstChild("ContentShell")
+    if shell then
+      shell.Position = L.shellPos or UDim2.new(0, 16, 0, 128)
+      shell.Size = L.shellSize or UDim2.new(1, -32, 1, -142)
+    end
 
     -- >>> PAGE PADDING <<< il respiro sopra/sotto cambia col lato delle tab
     if _G._AmbitiousApplyPagePadding then _G._AmbitiousApplyPagePadding() end
@@ -14087,17 +14368,24 @@ function section(parent, text, order)
   local label = Instance.new("TextLabel")
   label.Name = text
   label.BackgroundTransparency = 1
-  label.Text = text
-  label.TextColor3 = Color3.fromRGB(14, 165, 233)
-  label.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-  label.TextStrokeTransparency = 0.65
+  label.Text = "◆  " .. text
+  label.TextColor3 = Color3.fromRGB(0, 255, 200)
+  label.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+  label.TextStrokeTransparency = 0.6
   label.TextSize = 11
   label.Font = Enum.Font.GothamBlack
   label.TextXAlignment = Enum.TextXAlignment.Left
-  label.Size = UDim2.new(1, -6, 0, 15)
+  label.Size = UDim2.new(1, -6, 0, 16)
   label.LayoutOrder = order
   label.ZIndex = 8
   label.Parent = parent
+  local tg = Instance.new("UIGradient")
+  tg.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(180, 140, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 100, 180)),
+  })
+  tg.Parent = label
   return label
 end
 
@@ -14192,74 +14480,113 @@ end
 function baseRow(parent, labelText, order)
   local row = Instance.new("Frame")
   row.Name = labelText
-  -- Dark glass base
-  row.BackgroundColor3 = Color3.fromRGB(10, 14, 26)
-  row.BackgroundTransparency = 0.10
-  row.Size = UDim2.new(1, -4, 0, 44)
+  -- CARD row: floating chip + top micro-bar (bukan row polos)
+  row.BackgroundColor3 = Color3.fromRGB(14, 18, 34)
+  row.BackgroundTransparency = 0.05
+  row.Size = UDim2.new(1, -2, 0, 50)
   row.BorderSizePixel = 0
   row.LayoutOrder = order
   row.ZIndex = 4
+  row.ClipsDescendants = true
   row.Parent = parent
-  corner(row, 12)
-  -- Stroke cyan tipis
+  corner(row, 16)
+  -- top highlight strip
+  do
+    local strip = Instance.new("Frame")
+    strip.Name = "TopStrip"
+    strip.Size = UDim2.new(1, 0, 0, 2)
+    strip.Position = UDim2.new(0, 0, 0, 0)
+    strip.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+    strip.BorderSizePixel = 0
+    strip.ZIndex = 6
+    strip.Parent = row
+    local sg = Instance.new("UIGradient")
+    sg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+    })
+    sg.Transparency = NumberSequence.new({
+      NumberSequenceKeypoint.new(0, 0.2),
+      NumberSequenceKeypoint.new(0.5, 0.05),
+      NumberSequenceKeypoint.new(1, 0.35),
+    })
+    sg.Parent = strip
+  end
   local rowStroke = Instance.new("UIStroke")
   rowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-  rowStroke.Color = Color3.fromRGB(56, 189, 248)
-  rowStroke.Thickness = 1.2
-  rowStroke.Transparency = 0.52
+  rowStroke.Color = Color3.fromRGB(0, 255, 200)
+  rowStroke.Thickness = 1.15
+  rowStroke.Transparency = 0.55
   rowStroke.Parent = row
-  -- Gradient dark → cyan subtle
+  do
+    local sg = Instance.new("UIGradient")
+    sg.Rotation = 20
+    sg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+    })
+    sg.Transparency = NumberSequence.new({
+      NumberSequenceKeypoint.new(0, 0.35),
+      NumberSequenceKeypoint.new(0.5, 0.7),
+      NumberSequenceKeypoint.new(1, 0.4),
+    })
+    sg.Parent = rowStroke
+  end
   do
     local rg = Instance.new("UIGradient")
-    rg.Rotation = 5
+    rg.Rotation = 8
     rg.Color = ColorSequence.new({
-      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(14, 165, 233)),
-      ColorSequenceKeypoint.new(0.55, Color3.fromRGB(10, 10, 22)),
-      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(6, 182, 212)),
-    })
-    rg.Transparency = NumberSequence.new({
-      NumberSequenceKeypoint.new(0,   0.92),
-      NumberSequenceKeypoint.new(0.5, 0.88),
-      NumberSequenceKeypoint.new(1,   0.90),
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(22, 28, 48)),
+      ColorSequenceKeypoint.new(0.45, Color3.fromRGB(14, 16, 30)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(24, 14, 40)),
     })
     rg.Parent = row
   end
-  -- Garis aksen kiri (bar vertikal cyan)
+  -- Left neon chip accent
   local accent = Instance.new("Frame")
-  accent.Name = "_Accent"
-  accent.BackgroundColor3 = Color3.fromRGB(56, 189, 248)
-  accent.BackgroundTransparency = 0.25
+  accent.Name = "Accent"
+  accent.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+  accent.BackgroundTransparency = 0.15
   accent.BorderSizePixel = 0
-  accent.Size = UDim2.new(0, 3, 0, 22)
-  accent.Position = UDim2.new(0, 6, 0.5, -11)
+  accent.Size = UDim2.new(0, 4, 0, 26)
+  accent.Position = UDim2.new(0, 8, 0.5, -13)
   accent.ZIndex = 5
   accent.Parent = row
   corner(accent, 3)
-  -- Label teks
+  do
+    local ag = Instance.new("UIGradient")
+    ag.Rotation = 90
+    ag.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(120, 80, 255)),
+    })
+    ag.Parent = accent
+  end
   local label = Instance.new("TextLabel")
   label.Name = "Label"
   label.BackgroundTransparency = 1
   label.Text = labelText
-  label.TextColor3 = Color3.fromRGB(224, 242, 254)
-  label.TextStrokeColor3 = Color3.fromRGB(0, 10, 30)
-  label.TextStrokeTransparency = 0.55
+  label.TextColor3 = Color3.fromRGB(220, 230, 255)
+  label.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+  label.TextStrokeTransparency = 0.7
   label.TextSize = 12
   label.Font = Enum.Font.GothamSemibold
   label.TextXAlignment = Enum.TextXAlignment.Left
-  label.Position = UDim2.new(0, 16, 0, 0)
-  label.Size = UDim2.new(1, -132, 1, 0)
+  label.Position = UDim2.new(0, 20, 0, 0)
+  label.Size = UDim2.new(1, -136, 1, 0)
   label.ZIndex = 5
   label.Parent = row
-  -- Hover: stroke lebih terang + bg sedikit lebih terang
   row.MouseEnter:Connect(function()
-    tween(row, {BackgroundColor3 = Color3.fromRGB(14, 25, 50), BackgroundTransparency = 0.05})
-    tween(rowStroke, {Transparency = 0.18, Thickness = 1.4})
-    tween(accent, {BackgroundTransparency = 0.05})
+    tween(row, {BackgroundTransparency = 0.02})
+    tween(rowStroke, {Transparency = 0.2, Thickness = 1.45})
+    tween(accent, {BackgroundTransparency = 0})
   end)
   row.MouseLeave:Connect(function()
-    tween(row, {BackgroundColor3 = Color3.fromRGB(10, 14, 26), BackgroundTransparency = 0.10})
-    tween(rowStroke, {Transparency = 0.52, Thickness = 1.2})
-    tween(accent, {BackgroundTransparency = 0.25})
+    tween(row, {BackgroundTransparency = 0.08})
+    tween(rowStroke, {Transparency = 0.55, Thickness = 1.15})
+    tween(accent, {BackgroundTransparency = 0.15})
   end)
   return row
 end
@@ -14268,11 +14595,11 @@ function textboxRow(parent, labelText, value, order)
   local row = baseRow(parent, labelText, order)
   local box = Instance.new("TextBox")
   box.Name = "ValueBox"
-  box.BackgroundColor3 = Color3.fromRGB(6, 18, 40)
+  box.BackgroundColor3 = Color3.fromRGB(8, 12, 24)
   box.BackgroundTransparency = 0.05
   box.Text = tostring(value or "")
-  box.TextColor3 = Color3.fromRGB(56, 189, 248)
-  box.PlaceholderColor3 = Color3.fromRGB(100, 160, 200)
+  box.TextColor3 = Color3.fromRGB(0, 255, 200)
+  box.PlaceholderColor3 = Color3.fromRGB(80, 100, 140)
   box.TextSize = 12
   box.Font = Enum.Font.GothamBold
   box.ClearTextOnFocus = false
@@ -14282,7 +14609,7 @@ function textboxRow(parent, labelText, value, order)
   box.ZIndex = 6
   box.Parent = row
   corner(box, 8)
-  stroke(box, Color3.fromRGB(56, 189, 248), 1.2, 0.28)
+  stroke(box, Color3.fromRGB(120, 80, 255), 1.2, 0.35)
   return row, box
 end
 
@@ -14303,7 +14630,7 @@ local function _AmbitiousRevampedToggle(parent, labelText, default, order, wantB
   -- Ukuran sengaja tetap 48x24 seperti versi sebelumnya.
   local track = Instance.new("Frame")
   track.Name = "Track"
-  track.BackgroundColor3 = Color3.fromRGB(235, 248, 255)
+  track.BackgroundColor3 = Color3.fromRGB(10, 14, 26)
   track.BackgroundTransparency = 0
   track.Size = UDim2.new(0, 48, 0, 24)
   track.Position = UDim2.new(1, -58, 0.5, -12)
@@ -14312,12 +14639,12 @@ local function _AmbitiousRevampedToggle(parent, labelText, default, order, wantB
   track.ZIndex = 5
   track.Parent = button
   corner(track, 12)
-  local trackStroke = stroke(track, Color3.fromRGB(125, 211, 252), 1.2, 0.05)
+  local trackStroke = stroke(track, Color3.fromRGB(80, 90, 130), 1.2, 0.35)
 
   local trackGlow = Instance.new("Frame")
   trackGlow.Name = "GlassGlow"
-  trackGlow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  trackGlow.BackgroundTransparency = 0.72
+  trackGlow.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
+  trackGlow.BackgroundTransparency = 0.85
   trackGlow.Size = UDim2.new(1, -4, 0, 5)
   trackGlow.Position = UDim2.new(0, 2, 0, 2)
   trackGlow.BorderSizePixel = 0
@@ -14356,7 +14683,7 @@ local function _AmbitiousRevampedToggle(parent, labelText, default, order, wantB
 
   local fill = Instance.new("Frame")
   fill.Name = "Fill"
-  fill.BackgroundColor3 = Color3.fromRGB(56, 189, 248)
+  fill.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
   fill.BackgroundTransparency = default and 0 or 1
   fill.Size = UDim2.new(1, 0, 1, 0)
   fill.BorderSizePixel = 0
@@ -14365,10 +14692,10 @@ local function _AmbitiousRevampedToggle(parent, labelText, default, order, wantB
   corner(fill, 12)
   local fillGrad = Instance.new("UIGradient")
   fillGrad.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(191, 242, 255)),
-    ColorSequenceKeypoint.new(0.35, Color3.fromRGB(56, 189, 248)),
-    ColorSequenceKeypoint.new(0.70, Color3.fromRGB(37, 99, 235)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(186, 230, 253)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(80, 255, 220)),
+    ColorSequenceKeypoint.new(0.40, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
   })
   fillGrad.Rotation = 12
   fillGrad.Parent = fill
@@ -29227,39 +29554,40 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   -- SUPER STEAL BAR (redesign)
   -- Card glass + track progress + glow edge. API tetap sama.
   -- ============================================================
-  local W, H = 348, 54
-  local RADIUS = 16
-  local TRACK_H = 10
+  -- STEAL GUI: ORBITAL CORE (layout total baru — bukan bar horizontal klasik)
+  local W, H = 300, 108
+  local RADIUS = 22
+  local TRACK_H = 14
   local TRACK_PAD_X = 14
-  local TRACK_PAD_B = 10
+  local TRACK_PAD_B = 14
 
   local C = {
-    line   = Color3.fromRGB(56, 189, 248),
-    lineSoft = Color3.fromRGB(147, 197, 253),
-    txt    = Color3.fromRGB(15, 23, 42),
-    txtDim = Color3.fromRGB(71, 85, 105),
-    txtOn  = Color3.fromRGB(8, 47, 73),
-    good   = Color3.fromRGB(74, 222, 128),
-    warn   = Color3.fromRGB(250, 204, 21),
-    bad    = Color3.fromRGB(248, 113, 113),
-    glass  = Color3.fromRGB(248, 250, 252),
-    track  = Color3.fromRGB(226, 232, 240),
+    line   = Color3.fromRGB(0, 255, 200),
+    lineSoft = Color3.fromRGB(120, 80, 255),
+    txt    = Color3.fromRGB(230, 240, 255),
+    txtDim = Color3.fromRGB(140, 160, 200),
+    txtOn  = Color3.fromRGB(10, 12, 22),
+    good   = Color3.fromRGB(0, 255, 180),
+    warn   = Color3.fromRGB(255, 200, 80),
+    bad    = Color3.fromRGB(255, 80, 140),
+    glass  = Color3.fromRGB(12, 14, 26),
+    track  = Color3.fromRGB(22, 26, 44),
   }
 
   local GRAD_ACTIVE = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(125, 211, 252)),
-    ColorSequenceKeypoint.new(0.40, Color3.fromRGB(56, 189, 248)),
-    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(14, 165, 233)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(2, 132, 199)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.35, Color3.fromRGB(80, 200, 255)),
+    ColorSequenceKeypoint.new(0.70, Color3.fromRGB(120, 80, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
   })
   local GRAD_IDLE = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(241, 245, 249)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(203, 213, 225)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(18, 22, 40)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(28, 24, 48)),
   })
   local GRAD_DONE = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(74, 222, 128)),
-    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(34, 197, 94)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 185, 129)),
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.55, Color3.fromRGB(50, 255, 160)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(120, 255, 100)),
   })
 
   local gui = Instance.new("ScreenGui")
@@ -29301,7 +29629,7 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   local glow = Instance.new("Frame", gui)
   glow.Name = "StealBarGlow"
   glow.Size = UDim2.new(0, W + 18, 0, H + 18)
-  glow.BackgroundColor3 = Color3.fromRGB(56, 189, 248)
+  glow.BackgroundColor3 = Color3.fromRGB(120, 80, 255)
   glow.BackgroundTransparency = 1
   glow.BorderSizePixel = 0
   glow.ZIndex = 1
@@ -29323,10 +29651,19 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   Instance.new("UICorner", pbFrame).CornerRadius = UDim.new(0, RADIUS)
 
   local cardStroke = Instance.new("UIStroke", pbFrame)
-  cardStroke.Color = C.lineSoft
-  cardStroke.Thickness = 1.4
-  cardStroke.Transparency = 0.35
-
+  cardStroke.Color = Color3.fromRGB(0, 255, 200)
+  cardStroke.Thickness = 1.6
+  cardStroke.Transparency = 0.25
+  do
+    local csg = Instance.new("UIGradient")
+    csg.Rotation = 15
+    csg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+    })
+    csg.Parent = cardStroke
+  end
   -- Keep glow aligned under the card
   local function syncGlowPos()
     if glow and pbFrame then
@@ -29393,11 +29730,21 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   local scrim = Instance.new("Frame", pbFrame)
   scrim.Name = "Scrim"
   scrim.Size = UDim2.new(1, 0, 1, 0)
-  scrim.BackgroundColor3 = Color3.fromRGB(248, 250, 252)
-  scrim.BackgroundTransparency = 0.12
+  scrim.BackgroundColor3 = Color3.fromRGB(8, 10, 18)
+  scrim.BackgroundTransparency = 0.15
   scrim.BorderSizePixel = 0
   scrim.ZIndex = 2
   Instance.new("UICorner", scrim).CornerRadius = UDim.new(0, RADIUS)
+  do
+    local sg = Instance.new("UIGradient")
+    sg.Rotation = 140
+    sg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(14, 16, 30)),
+      ColorSequenceKeypoint.new(0.50, Color3.fromRGB(8, 10, 18)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(18, 10, 28)),
+    })
+    sg.Parent = scrim
+  end
 
   local function hubBgSource()
     local hub = HubGui:FindFirstChild("BlaxingHub") or HubGui:FindFirstChild("AmbitiousHub")
@@ -29418,102 +29765,153 @@ _G.__AmbitiousDuelsSetupStealBar = function()
     end
   end)
 
-  -- ===================== TOP ROW: title + percent + stats =====================
-  local topRow = Instance.new("Frame", pbFrame)
-  topRow.Name = "TopRow"
-  topRow.Size = UDim2.new(1, -24, 0, 22)
-  topRow.Position = UDim2.new(0, 12, 0, 6)
-  topRow.BackgroundTransparency = 1
-  topRow.ZIndex = 10
+  -- ========== ORBITAL CORE LAYOUT ==========
+  -- LEFT: big percent core
+  local core = Instance.new("Frame", pbFrame)
+  core.Name = "PercentCore"
+  core.Size = UDim2.new(0, 86, 0, 86)
+  core.Position = UDim2.new(0, 12, 0.5, -43)
+  core.BackgroundColor3 = Color3.fromRGB(16, 20, 36)
+  core.BorderSizePixel = 0
+  core.ZIndex = 8
+  Instance.new("UICorner", core).CornerRadius = UDim.new(1, 0)
+  do
+    local cs = Instance.new("UIStroke")
+    cs.Thickness = 2.2
+    cs.Transparency = 0.15
+    cs.Color = Color3.fromRGB(0, 255, 200)
+    cs.Parent = core
+    local cg = Instance.new("UIGradient")
+    cg.Rotation = 45
+    cg.Color = ColorSequence.new({
+      ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 200)),
+      ColorSequenceKeypoint.new(0.50, Color3.fromRGB(120, 80, 255)),
+      ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 60, 160)),
+    })
+    cg.Parent = cs
+  end
+  -- inner ring
+  do
+    local inner = Instance.new("Frame")
+    inner.Name = "CoreInner"
+    inner.AnchorPoint = Vector2.new(0.5, 0.5)
+    inner.Position = UDim2.new(0.5, 0, 0.5, 0)
+    inner.Size = UDim2.new(1, -12, 1, -12)
+    inner.BackgroundColor3 = Color3.fromRGB(10, 12, 22)
+    inner.BorderSizePixel = 0
+    inner.ZIndex = 9
+    inner.Parent = core
+    Instance.new("UICorner", inner).CornerRadius = UDim.new(1, 0)
+    local is = Instance.new("UIStroke")
+    is.Thickness = 1
+    is.Transparency = 0.5
+    is.Color = Color3.fromRGB(80, 90, 130)
+    is.Parent = inner
+  end
 
-  -- STEAL badge
-  local badge = Instance.new("Frame", topRow)
+  local progressPct = Instance.new("TextLabel", core)
+  progressPct.Name = "Percent"
+  progressPct.AnchorPoint = Vector2.new(0.5, 0.5)
+  progressPct.Position = UDim2.new(0.5, 0, 0.5, -4)
+  progressPct.Size = UDim2.new(1, -8, 0, 28)
+  progressPct.BackgroundTransparency = 1
+  progressPct.Text = "0%"
+  progressPct.TextColor3 = Color3.fromRGB(230, 240, 255)
+  progressPct.Font = Enum.Font.GothamBlack
+  progressPct.TextSize = 22
+  progressPct.TextXAlignment = Enum.TextXAlignment.Center
+  progressPct.ZIndex = 12
+
+  local coreSub = Instance.new("TextLabel", core)
+  coreSub.Name = "CoreSub"
+  coreSub.AnchorPoint = Vector2.new(0.5, 1)
+  coreSub.Position = UDim2.new(0.5, 0, 1, -14)
+  coreSub.Size = UDim2.new(1, -10, 0, 12)
+  coreSub.BackgroundTransparency = 1
+  coreSub.Text = "EXTRACT"
+  coreSub.TextColor3 = Color3.fromRGB(120, 140, 180)
+  coreSub.Font = Enum.Font.GothamBold
+  coreSub.TextSize = 8
+  coreSub.TextXAlignment = Enum.TextXAlignment.Center
+  coreSub.ZIndex = 12
+
+  -- RIGHT COLUMN
+  local rightCol = Instance.new("Frame", pbFrame)
+  rightCol.Name = "RightCol"
+  rightCol.Position = UDim2.new(0, 108, 0, 10)
+  rightCol.Size = UDim2.new(1, -120, 1, -20)
+  rightCol.BackgroundTransparency = 1
+  rightCol.ZIndex = 8
+
+  -- State badge (full width capsule)
+  local badge = Instance.new("Frame", rightCol)
   badge.Name = "Badge"
-  badge.Size = UDim2.new(0, 54, 0, 18)
-  badge.Position = UDim2.new(0, 0, 0.5, -9)
-  badge.BackgroundColor3 = Color3.fromRGB(56, 189, 248)
-  badge.BackgroundTransparency = 0.15
+  badge.Size = UDim2.new(1, 0, 0, 22)
+  badge.Position = UDim2.new(0, 0, 0, 0)
+  badge.BackgroundColor3 = Color3.fromRGB(22, 26, 44)
+  badge.BackgroundTransparency = 0.1
   badge.BorderSizePixel = 0
   badge.ZIndex = 11
   Instance.new("UICorner", badge).CornerRadius = UDim.new(1, 0)
   local badgeStroke = Instance.new("UIStroke", badge)
-  badgeStroke.Color = Color3.fromRGB(125, 211, 252)
-  badgeStroke.Thickness = 1
-  badgeStroke.Transparency = 0.25
+  badgeStroke.Color = Color3.fromRGB(0, 255, 200)
+  badgeStroke.Thickness = 1.1
+  badgeStroke.Transparency = 0.35
 
   local stealLbl = Instance.new("TextLabel", badge)
   stealLbl.Name = "StateLabel"
-  stealLbl.Size = UDim2.new(1, 0, 1, 0)
+  stealLbl.Size = UDim2.new(1, -8, 1, 0)
+  stealLbl.Position = UDim2.new(0, 4, 0, 0)
   stealLbl.BackgroundTransparency = 1
-  stealLbl.Text = "STEAL"
-  stealLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+  stealLbl.Text = "STANDBY"
+  stealLbl.TextColor3 = Color3.fromRGB(200, 220, 255)
   stealLbl.Font = Enum.Font.GothamBlack
-  stealLbl.TextSize = 10
+  stealLbl.TextSize = 11
   stealLbl.TextXAlignment = Enum.TextXAlignment.Center
-  stealLbl.TextStrokeTransparency = 1
   stealLbl.ZIndex = 12
 
-  -- Hub brand
-  local hubTitleLbl = Instance.new("TextLabel", topRow)
+  -- Brand under badge
+  local hubTitleLbl = Instance.new("TextLabel", rightCol)
   hubTitleLbl.Name = "HubTitle"
-  hubTitleLbl.Size = UDim2.new(0, 90, 1, 0)
-  hubTitleLbl.Position = UDim2.new(0, 60, 0, 0)
+  hubTitleLbl.Size = UDim2.new(1, 0, 0, 12)
+  hubTitleLbl.Position = UDim2.new(0, 0, 0, 24)
   hubTitleLbl.BackgroundTransparency = 1
-  hubTitleLbl.Text = "Blaxing"
-  hubTitleLbl.TextColor3 = Color3.fromRGB(56, 189, 248)
-  hubTitleLbl.Font = Enum.Font.GothamBlack
-  hubTitleLbl.TextSize = 12
+  hubTitleLbl.Text = "◈ BLAXING CORE"
+  hubTitleLbl.TextColor3 = Color3.fromRGB(0, 255, 200)
+  hubTitleLbl.Font = Enum.Font.GothamBold
+  hubTitleLbl.TextSize = 9
   hubTitleLbl.TextXAlignment = Enum.TextXAlignment.Left
-  hubTitleLbl.TextYAlignment = Enum.TextYAlignment.Center
-  hubTitleLbl.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-  hubTitleLbl.TextStrokeTransparency = 0.7
   hubTitleLbl.ZIndex = 11
 
-  -- Percent (big, right of title area)
-  local progressPct = Instance.new("TextLabel", topRow)
-  progressPct.Name = "Percent"
-  progressPct.AnchorPoint = Vector2.new(1, 0.5)
-  progressPct.Position = UDim2.new(1, -78, 0.5, 0)
-  progressPct.Size = UDim2.new(0, 56, 1, 0)
-  progressPct.BackgroundTransparency = 1
-  progressPct.Text = "0%"
-  progressPct.TextColor3 = C.txtDim
-  progressPct.Font = Enum.Font.GothamBlack
-  progressPct.TextSize = 14
-  progressPct.TextXAlignment = Enum.TextXAlignment.Right
-  progressPct.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-  progressPct.TextStrokeTransparency = 0.75
-  progressPct.ZIndex = 11
-
-  -- Stats pills (FPS / MS)
-  local STAT_W = 72
-  local rightHolder = Instance.new("Frame", topRow)
+  -- Stats row
+  local rightHolder = Instance.new("Frame", rightCol)
   rightHolder.Name = "Stats"
-  rightHolder.Visible = true
-  rightHolder.AnchorPoint = Vector2.new(1, 0.5)
-  rightHolder.Position = UDim2.new(1, 0, 0.5, 0)
-  rightHolder.Size = UDim2.new(0, STAT_W, 0, 18)
+  rightHolder.Position = UDim2.new(0, 0, 1, -16)
+  rightHolder.Size = UDim2.new(1, 0, 0, 16)
   rightHolder.BackgroundTransparency = 1
   rightHolder.ZIndex = 11
 
   local rList = Instance.new("UIListLayout", rightHolder)
   rList.FillDirection = Enum.FillDirection.Horizontal
-  rList.HorizontalAlignment = Enum.HorizontalAlignment.Right
+  rList.HorizontalAlignment = Enum.HorizontalAlignment.Left
   rList.VerticalAlignment = Enum.VerticalAlignment.Center
   rList.SortOrder = Enum.SortOrder.LayoutOrder
-  rList.Padding = UDim.new(0, 4)
+  rList.Padding = UDim.new(0, 6)
 
   local function makePill(order, name, unit)
     local pill = Instance.new("Frame", rightHolder)
     pill.Name = name .. "Pill"
     pill.LayoutOrder = order
-    pill.Size = UDim2.new(0, 34, 0, 16)
-    pill.BackgroundColor3 = Color3.fromRGB(241, 245, 249)
-    pill.BackgroundTransparency = 0.15
+    pill.Size = UDim2.new(0, 42, 0, 15)
+    pill.BackgroundColor3 = Color3.fromRGB(18, 22, 38)
+    pill.BackgroundTransparency = 0.05
     pill.BorderSizePixel = 0
     pill.ZIndex = 12
     Instance.new("UICorner", pill).CornerRadius = UDim.new(1, 0)
-
+    local ps = Instance.new("UIStroke", pill)
+    ps.Color = Color3.fromRGB(60, 70, 110)
+    ps.Thickness = 1
+    ps.Transparency = 0.45
     local val = Instance.new("TextLabel", pill)
     val.Name = "Value"
     val.Size = UDim2.new(1, 0, 1, 0)
@@ -29536,24 +29934,34 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   progressRadLbl.Size = UDim2.new(0, 0, 0, 0)
   progressRadLbl.Visible = false
 
-  -- ===================== PROGRESS TRACK =====================
-  local track = Instance.new("Frame", pbFrame)
+  -- TRACK: thick mid-right energy bar (bukan thin bottom strip)
+  local track = Instance.new("Frame", rightCol)
   track.Name = "Track"
-  track.AnchorPoint = Vector2.new(0.5, 1)
-  track.Position = UDim2.new(0.5, 0, 1, -TRACK_PAD_B)
-  track.Size = UDim2.new(1, -(TRACK_PAD_X * 2), 0, TRACK_H)
-  track.BackgroundColor3 = C.track
-  track.BackgroundTransparency = 0.25
+  track.Position = UDim2.new(0, 0, 0, 42)
+  track.Size = UDim2.new(1, 0, 0, TRACK_H)
+  track.BackgroundColor3 = Color3.fromRGB(18, 22, 36)
+  track.BackgroundTransparency = 0.1
   track.BorderSizePixel = 0
   track.ClipsDescendants = true
   track.ZIndex = 6
   Instance.new("UICorner", track).CornerRadius = UDim.new(1, 0)
   local trackStroke = Instance.new("UIStroke", track)
-  trackStroke.Color = Color3.fromRGB(203, 213, 225)
+  trackStroke.Color = Color3.fromRGB(50, 60, 100)
   trackStroke.Thickness = 1
-  trackStroke.Transparency = 0.45
+  trackStroke.Transparency = 0.4
 
-  -- fill (washClip/wash names kept for API)
+  -- Segment dividers (visual only — progress masih washClip)
+  for i = 1, 7 do
+    local div = Instance.new("Frame", track)
+    div.Name = "Seg" .. i
+    div.Size = UDim2.new(0, 1, 1, 0)
+    div.Position = UDim2.new(i / 8, 0, 0, 0)
+    div.BackgroundColor3 = Color3.fromRGB(8, 10, 18)
+    div.BackgroundTransparency = 0.35
+    div.BorderSizePixel = 0
+    div.ZIndex = 9
+  end
+
   local washClip = Instance.new("Frame", track)
   washClip.Name = "WashClip"
   washClip.Size = UDim2.new(0, 0, 1, 0)
@@ -29564,7 +29972,7 @@ _G.__AmbitiousDuelsSetupStealBar = function()
 
   local wash = Instance.new("Frame", washClip)
   wash.Name = "Wash"
-  wash.Size = UDim2.new(0, W - TRACK_PAD_X * 2, 1, 0)
+  wash.Size = UDim2.new(0, 200, 1, 0)
   wash.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
   wash.BorderSizePixel = 0
   wash.ZIndex = 7
@@ -29574,26 +29982,25 @@ _G.__AmbitiousDuelsSetupStealBar = function()
   washGrad.Rotation = 0
   washGrad.Color = GRAD_ACTIVE
   washGrad.Transparency = NumberSequence.new({
-    NumberSequenceKeypoint.new(0.00, 0.08),
-    NumberSequenceKeypoint.new(0.55, 0.02),
-    NumberSequenceKeypoint.new(1.00, 0.00),
+    NumberSequenceKeypoint.new(0.00, 0.05),
+    NumberSequenceKeypoint.new(0.55, 0.0),
+    NumberSequenceKeypoint.new(1.00, 0.0),
   })
 
-  -- Leading edge glow (head of progress)
   local edge = Instance.new("Frame", track)
   edge.Name = "Edge"
   edge.AnchorPoint = Vector2.new(0.5, 0.5)
-  edge.Size = UDim2.new(0, 4, 1, 4)
+  edge.Size = UDim2.new(0, 6, 1, 6)
   edge.Position = UDim2.new(0, 0, 0.5, 0)
-  edge.BackgroundColor3 = Color3.fromRGB(224, 242, 254)
+  edge.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
   edge.BackgroundTransparency = 1
   edge.BorderSizePixel = 0
-  edge.ZIndex = 8
+  edge.ZIndex = 10
   Instance.new("UICorner", edge).CornerRadius = UDim.new(1, 0)
   local edgeStroke = Instance.new("UIStroke", edge)
-  edgeStroke.Color = Color3.fromRGB(186, 230, 253)
-  edgeStroke.Thickness = 1.5
-  edgeStroke.Transparency = 0.2
+  edgeStroke.Color = Color3.fromRGB(255, 255, 255)
+  edgeStroke.Thickness = 1.2
+  edgeStroke.Transparency = 0.35
 
   -- ===================== STATE =====================
   local barState = "IDLE"
@@ -29605,16 +30012,22 @@ _G.__AmbitiousDuelsSetupStealBar = function()
     local active = (state ~= "IDLE")
     local done = (state == "DONE" or state == "SUCCESS" or state == "STOLEN")
 
-    local label = "STEAL"
-    if state == "STEALING" then label = "STEALING"
-    elseif done then label = "STOLEN"
+    local label = "STANDBY"
+    if state == "STEALING" then label = "EXTRACTING"
+    elseif done then label = "SECURED"
     elseif state ~= "IDLE" then label = state end
     stealLbl.Text = label
 
     washGrad.Color = done and GRAD_DONE or (active and GRAD_ACTIVE or GRAD_IDLE)
-    badge.BackgroundColor3 = done and Color3.fromRGB(34, 197, 94)
-      or (active and Color3.fromRGB(14, 165, 233) or Color3.fromRGB(56, 189, 248))
-    badge.BackgroundTransparency = active and 0.05 or 0.2
+    badge.BackgroundColor3 = done and Color3.fromRGB(0, 200, 140)
+      or (active and Color3.fromRGB(0, 180, 160) or Color3.fromRGB(22, 26, 44))
+    badge.BackgroundTransparency = active and 0.05 or 0.15
+    stealLbl.TextColor3 = active and Color3.fromRGB(10, 12, 22) or Color3.fromRGB(200, 220, 255)
+    pcall(function()
+      if coreSub then
+        coreSub.Text = done and "SECURED" or (active and "LIVE" or "EXTRACT")
+      end
+    end)
 
     local col = active and C.txtOn or C.txtDim
     TS:Create(progressPct, TweenInfo.new(0.18), {TextColor3 = col}):Play()
@@ -30893,13 +31306,13 @@ local function makeButton(key, label, pos, onPress)
     btn.Name = "MB_" .. key
     btn.Size = UDim2.new(1, 0, 1, 0)
     btn.Position = UDim2.new(0, 0, 0, 0)
-    btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    btn.BackgroundColor3 = Color3.fromRGB(16, 20, 36)
     btn.BackgroundTransparency = 0
     btn.BorderSizePixel = 0
     btn.BorderColor3 = Color3.fromRGB(0, 0, 0)
     btn.BorderMode = Enum.BorderMode.Inset
     btn.Text = label
-    btn.TextColor3 = Color3.fromRGB(6, 182, 212)
+    btn.TextColor3 = Color3.fromRGB(0, 255, 200)
     btn.Font = Enum.Font.GothamBlack
     btn.TextSize = 9
     btn.TextWrapped = true
@@ -30956,25 +31369,24 @@ local function makeButton(key, label, pos, onPress)
 
     -- Funzione per aggiornare lo stato
     local function updateButton(state)
-        local pal = _G._AmbitiousThemePalette and _G._AmbitiousThemePalette()
         local hw = _G.AmbitiousHalloweenTheme == true
-        -- ON: oranye tua; OFF halloween: oranye cerah (bukan putih-biru); OFF normal: putih
-        local onBg  = (hw and Color3.fromRGB(234, 88, 12)) or Color3.fromRGB(6, 182, 212)
-        local offBg = (hw and Color3.fromRGB(251, 146, 60)) or Color3.fromRGB(255, 255, 255)
-        local edge  = (hw and Color3.fromRGB(253, 186, 116)) or Color3.fromRGB(56, 189, 248)
+        -- Normal VOID: OFF gelap, ON cyan neon | Halloween: oranye
+        local onBg  = (hw and Color3.fromRGB(234, 88, 12)) or Color3.fromRGB(0, 220, 175)
+        local offBg = (hw and Color3.fromRGB(251, 146, 60)) or Color3.fromRGB(16, 20, 36)
+        local edge  = (hw and Color3.fromRGB(253, 186, 116)) or Color3.fromRGB(120, 80, 255)
+        local offTxt = (hw and Color3.fromRGB(6, 182, 212)) or Color3.fromRGB(0, 255, 200)
         if state then
             btn.BackgroundColor3 = onBg
             btn.BackgroundTransparency = 0
-            btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            btn.TextColor3 = Color3.fromRGB(10, 12, 22)
             txtGrad.Enabled = false
             bgGrad.Enabled = false
             glow.BackgroundColor3 = edge
-            glow.BackgroundTransparency = 0.25
+            glow.BackgroundTransparency = 0.3
         else
             btn.BackgroundColor3 = offBg
             btn.BackgroundTransparency = 0
-            -- teks tetap warna asli (cyan), tidak diubah ke oranye
-            btn.TextColor3 = Color3.fromRGB(6, 182, 212)
+            btn.TextColor3 = offTxt
             txtGrad.Enabled = false
             bgGrad.Enabled = false
             glow.BackgroundTransparency = 1
